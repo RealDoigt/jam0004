@@ -2,13 +2,25 @@
 <title>Hand Note</title>
 <script>
 
+const maxSound = 5;
+const minSound = 0;
+const memSize = 250;
 
 const registers = {
-
-  duration : 0,
-  volume : 0,
   
+  memoryPointer: 0;
+  duration: 0,
+  volume: 0,
+  sound: 0,
+  a: 0,
+  b: 0,
+  
+  setSound: (n) => this.sound = n > maxSound ? minSound : n < minSound ? maxSound : n;
+  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n; 
 };
+
+const memory = Array(memSize);
+const instructionStack = [];
 
 const glyphs = [
   
