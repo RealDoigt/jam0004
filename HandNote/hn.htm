@@ -85,8 +85,14 @@ const parse = (src, i = 0) => {
       case "👌":
         
         const repeatStack = parse(src, i);
+        i = repeatStack.index;
         
-        break;
+        stack.push(() =>
+          
+          for (let j = 0; j < memory[memoryPointer]; ++j)
+              repeatStack.forEach(exp => exp());
+        );
+        continue;
 
       case "✌":
       
