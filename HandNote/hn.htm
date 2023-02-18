@@ -66,11 +66,79 @@ const glyphs = [
   "🤜"  // from register b
 ];
 
-const parse = (src) => {
+const parse = (src, i = 0) => {
 
-  src.forEach(c => {
+  const stack = [];
+  const peek = () => i + 1 < src.length ? src[i + 1] : -1; 
+
+  for (; i < src.length; ++i) {
   
-    
+    switch (src[i]) {
+      
+      case "👋":
+        
+        stack.push(() => (
+          
+          sounds[registers.sound].volume = registers.getVolume();
+          sounds[registers.sound].play();
+        ));
+        break;
+
+      case "✋":
+        return {stack: stack, index: i};
+
+      case "👌":
+        
+        break;
+
+      case "✌":
+      
+        break;
+
+      case "🤘":
+      
+        break;
+
+      case "👈":
+      
+        break;
+
+      case "👉":
+      
+        break;
+
+      case "👆":
+      
+        break;
+
+      case "👇":
+      
+        break;
+
+      case "👍":
+      
+        break;
+
+      case "👎":
+      
+        break;
+
+      case "✊":
+      
+        break;
+
+      case "👊":
+      
+        break;
+
+      case "🤛":
+      
+        break;
+
+      case "🤜":
+      
+        break;
+    }
   });
 }
 </script>
