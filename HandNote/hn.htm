@@ -8,6 +8,7 @@ const memSize = 250;
 
 const registers = {
   
+  stackPointers: [0];
   memoryPointer: 0;
   duration: 0,
   volume: 0,
@@ -16,7 +17,18 @@ const registers = {
   b: 0,
   
   setSound: (n) => this.sound = n > maxSound ? minSound : n < minSound ? maxSound : n;
-  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n; 
+  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n;
+  
+  trySetStackPointer: (i, n) => {
+    
+    if (i < this.stackPointers.length && n > 0) {
+      
+      this.stackPointers[i] = n;
+      return true
+    }
+    
+    return false;
+  };
 };
 
 const memory = Array(memSize);
