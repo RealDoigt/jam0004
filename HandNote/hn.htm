@@ -6,6 +6,16 @@ const maxSound = 5;
 const minSound = 0;
 const memSize = 250;
 
+const sounds = [
+
+  new Audio("noise/clap.mp3"),
+  new Audio("noise/click.mp3"),
+  new Audio("noise/crack.mp3"),
+  new Audio("noise/punch.mp3"),
+  new Audio("noise/scratch.mp3"),
+  new Audio("noise/slap.mp3")
+];
+
 const registers = {
   
   stackPointers: [];
@@ -53,4 +63,12 @@ const glyphs = [
   "🤛", // from register a
   "🤜"  // from register b
 ];
+
+const parse = (src) => {
+
+  src.forEach(c => {
+  
+    
+  });
+}
 </script>
