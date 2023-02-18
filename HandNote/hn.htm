@@ -27,8 +27,10 @@ const registers = {
   b: 0,
   
   setSound: (n) => this.sound = n > maxSound ? minSound : n < minSound ? maxSound : n;
-  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n;
+  setVolume: (n) => this.volume = (n > 100 ? 100 : n < 0 ? 0 : n) / 100;
+  getVolume: () => this.volume * 100;
   
+  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n;
   trySetStackPointer: (i, n) => {
     
     if (i < this.stackPointers.length && n > 0) {
