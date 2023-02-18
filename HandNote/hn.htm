@@ -18,9 +18,7 @@ const sounds = [
 
 const registers = {
   
-  stackPointers: [0];
   memoryPointer: 0;
-  currentStack: 0;
   //duration: 0,
   volume: 0,
   sound: 0,
@@ -33,9 +31,6 @@ const registers = {
   getVolume: () => this.volume * 100;
   
   setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n;
-  
-  setStackPointer: (n) => this.stackPointers[currentStack] = n;
-  getStackPointer: () => this.stackPointers[currentStack];
 };
 
 const memory = Array(memSize);
@@ -88,34 +83,42 @@ const parse = (src, i = 0) => {
         i = repeatStack.index;
         
         stack.push(() =>
+        
+          const max = memory[memoryPointer];
           
-          for (let j = 0; j < memory[memoryPointer]; ++j)
-              repeatStack.forEach(exp => exp());
+          for (let j = 0; j < max; ++j)
+              repeatStack.stack.forEach(exp => exp());
         );
         continue;
 
       case "✌":
-      
+        
+        stack.push(() => registers.setVolume(memory[memoryPointer]));
         break;
 
       case "🤘":
-      
+        
+        stack.push(() => registers.setSound(memory[memoryPointer]));
         break;
 
       case "👈":
-      
+        
+        stack.push(() => registers.setMemoryPointer(memoryPointer - 1));
         break;
 
       case "👉":
-      
+        
+        stack.push(() => registers.setMemoryPointer(memoryPointer + 1));
         break;
 
       case "👆":
-      
+        
+        stack.push(() => ++memory[memoryPointer]);
         break;
 
       case "👇":
-      
+        
+        stack.push(() => --memory[memoryPointer]);
         break;
 
       case "👍":
