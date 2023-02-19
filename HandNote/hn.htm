@@ -67,11 +67,11 @@ const parse = (src, i = 0) => {
       
       case "👋":
         
-        stack.push(() => (
+        stack.push(() => {
           
           sounds[registers.sound].volume = registers.getVolume();
           sounds[registers.sound].play();
-        ));
+        });
         break;
 
       case "✋":
@@ -82,13 +82,13 @@ const parse = (src, i = 0) => {
         const repeatStack = parse(src, i);
         i = repeatStack.index;
         
-        stack.push(() =>
+        stack.push(() => {
         
           const max = memory[memoryPointer];
           
           for (let j = 0; j < max; ++j)
               repeatStack.stack.forEach(exp => exp());
-        );
+        });
         continue;
 
       case "✌":
@@ -122,8 +122,16 @@ const parse = (src, i = 0) => {
         break;
 
       case "👍":
-      
-        break;
+        
+        const greaterStack = parse(src, i);
+        i = greaterStack.index;
+        
+        stack.push(() => {
+                  
+          if (registers.a > registers.b)
+              greaterStack.stack.forEach(exp => exp());
+        });
+        continue;
 
       case "👎":
       
