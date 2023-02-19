@@ -135,22 +135,34 @@ const parse = (src, i = 0) => {
 
       case "👎":
       
-        break;
+        const lowerStack = parse(src, i);
+        i = lowerStack.index;
+        
+        stack.push(() => {
+                  
+          if (registers.a < registers.b)
+              lowerStack.stack.forEach(exp => exp());
+        });
+        continue;
 
       case "✊":
-      
+        
+        stack.push(() => registers.a = memory[memoryPointer]);
         break;
 
       case "👊":
-      
+        
+        stack.push(() => registers.b = memory[memoryPointer]);
         break;
 
       case "🤛":
-      
+        
+        stack.push(() => memory[memoryPointer] = registers.a);
         break;
 
       case "🤜":
-      
+        
+        stack.push(() => memory[memoryPointer] = registers.b);
         break;
     }
   });
