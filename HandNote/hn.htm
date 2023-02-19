@@ -56,7 +56,7 @@ const registers = {
   setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n
 };
 
-const memory = Array(memSize).fill(0, 0, memsize);
+let memory = Array(memSize);
 
 const glyphs = [
   
@@ -82,6 +82,7 @@ window.onload = () => {
   
   const container = document.getElementById("container");
   const textarea = document.querySelector("textarea");
+  memory = memory.fill(0, 0, memSize);
   
   glyphs.forEach(g => {
   
@@ -98,10 +99,12 @@ window.onload = () => {
 const parse = (src, i = 0) => {
 
   const stack = [];
-
-  for (; i < src.length; ++i) {
   
-    switch (src[i]) {
+  const chars = Array.from(src);
+
+  for (; i < chars.length; ++i) {
+  
+    switch (chars[i]) {
       
       case "👋":
         
@@ -204,7 +207,7 @@ const parse = (src, i = 0) => {
         break;
         
       default:
-        console.log(src[i]);
+        console.log(chars[i]);
     }
   }
   
