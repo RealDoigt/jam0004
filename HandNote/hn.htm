@@ -56,7 +56,7 @@ const registers = {
   setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n
 };
 
-const memory = Array(memSize);
+const memory = Array(memSize).fill(0, 0, memsize);
 
 const glyphs = [
   
