@@ -56,7 +56,6 @@ const registers = {
 };
 
 const memory = Array(memSize);
-const instructionStack = [];
 
 const glyphs = [
   
@@ -91,6 +90,8 @@ window.onLoad = () => {
     
     container.appendChild(button);
   });
+  
+  document.querySelector("button").onClick = () => parse(src).stack.forEach(exp => exp());
 };
 
 const parse = (src, i = 0) => {
@@ -203,5 +204,7 @@ const parse = (src, i = 0) => {
         break;
     }
   });
+  
+  return {stack: stack, index: i};
 }
 </script>
