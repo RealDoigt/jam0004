@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <meta charset="utf-8"/>
 <title>Hand Note</title>
 
@@ -8,7 +9,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  font-size: 10vw;
+  font-size: 3vw;
 }
 
 #container *:hover
@@ -40,19 +41,19 @@ const sounds = [
 
 const registers = {
   
-  memoryPointer: 0;
+  memoryPointer: 0,
   //duration: 0,
   volume: 0,
   sound: 0,
   a: 0,
   b: 0,
   
-  setSound: (n) => this.sound = n > maxSound ? minSound : n < minSound ? maxSound : n;
+  setSound: (n) => this.sound = n > maxSound ? minSound : n < minSound ? maxSound : n,
   
-  setVolume: (n) => this.volume = (n > 100 ? 100 : n < 0 ? 0 : n) / 100;
-  getVolume: () => this.volume * 100;
+  setVolume: (n) => this.volume = (n > 100 ? 100 : n < 0 ? 0 : n) / 100,
+  getVolume: () => this.volume * 100,
   
-  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n;
+  setMemoryPointer: (n) => this.memoryPointer = n > memSize ? memSize : n < 0 ? 0 : n
 };
 
 const memory = Array(memSize);
@@ -77,27 +78,26 @@ const glyphs = [
   "🤜"  // from register b
 ];
 
-window.onLoad = () => {
-
+window.onload = () => {
+  
   const container = document.getElementById("container");
   const textarea = document.querySelector("textarea");
   
   glyphs.forEach(g => {
   
     const button = document.createElement("div");
-    button.onClick = () => textarea.innerText += g;
+    button.onclick = () => textarea.value += g;
     button.innerText = g;
     
     container.appendChild(button);
   });
   
-  document.querySelector("button").onClick = () => parse(src).stack.forEach(exp => exp());
+  document.querySelector("button").onclick = () => parse(textarea.value).stack.forEach(exp => exp());
 };
 
 const parse = (src, i = 0) => {
 
   const stack = [];
-  const peek = () => i + 1 < src.length ? src[i + 1] : -1; 
 
   for (; i < src.length; ++i) {
   
@@ -202,8 +202,11 @@ const parse = (src, i = 0) => {
         
         stack.push(() => memory[memoryPointer] = registers.b);
         break;
+        
+      default:
+        console.log(src[i]);
     }
-  });
+  }
   
   return {stack: stack, index: i};
 }
