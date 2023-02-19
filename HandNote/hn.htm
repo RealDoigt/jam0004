@@ -81,11 +81,15 @@ const glyphs = [
 window.onLoad = () => {
 
   const container = document.getElementById("container");
+  const textarea = document.querySelector("textarea");
   
   glyphs.forEach(g => {
   
     const button = document.createElement("div");
-    button.onClick = () => 
+    button.onClick = () => textarea.innerText += g;
+    button.innerText = g;
+    
+    container.appendChild(button);
   });
 };
 
