@@ -110,7 +110,7 @@ const parse = (src, i = 0) => {
         
         stack.push(() => {
           
-          sounds[registers.sound].volume = registers.getVolume();
+          sounds[registers.sound].volume = /*registers.getVolume()*/ 0.5;
           sounds[registers.sound].play();
         });
         break;
